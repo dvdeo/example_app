@@ -7,15 +7,21 @@
   height: 80px;
 }
 
+.App-logo_jvit {
+  height: 80px;
+}
 .App-header {
-  background-color: #222;
-  height: 150px;
+  font-family: Arial, Helvetica, sans-serif;
+  background-image: url(./images/bg-01.jpg);
+  background-repeat: no-repeat;
+  background-size: 100%;
+  height: 170px;
   padding: 20px;
   color: white;
 }
 
 .App-title {
-  font-size: 1.5em;
+  font-size: 1.8em;
 }
 
 .App-intro {
