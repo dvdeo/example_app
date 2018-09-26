@@ -17,13 +17,13 @@ class App extends Component {
         _id: 1,
         title: "reactstrap",
         body: "Follow the create-react-app instructions up to the Adding Bootstrap section and instead follow the reactstrap version of adding bootstrap.",
-        updateAt: "2018/09/25"
+        updateAt: new Date().toLocaleDateString()
       },
       2: {
         _id: 2,
         title: "Adding Bootstrap",
         body: "Install reactstrap and Bootstrap from NPM. Reactstrap does not include Bootstrap CSS so this needs to be installed as well:",
-        updateAt: "2018/09/24"
+        updateAt: new Date().toLocaleDateString()
       }
     }
   }
