@@ -4,9 +4,9 @@ export default class ShowPage extends React.Component {
     render() {
         const { note } = this.props;
         return (
-            <div>
+            <div className="show-page">
                 <h1>{note.title}</h1>
-                <h2>{ note.body }</h2>
+                <p>{ note.body }</p>
             </div>
         );
     }
