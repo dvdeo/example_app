@@ -10,34 +10,58 @@ import Navbar from './components/navbar';
 import NoteList from './components/noteList';
 import NewPage from './pages/newNote';
 
+import DB from './db';
+
 class App extends Component {
   state = {
-    notes: {
-      1: {
-        _id: 1,
-        title: "reactstrap",
-        body: "Follow the create-react-app instructions up to the Adding Bootstrap section and instead follow the reactstrap version of adding bootstrap.",
-        updateAt: new Date().toLocaleDateString()
-      },
-      2: {
-        _id: 2,
-        title: "Adding Bootstrap",
-        body: "Install reactstrap and Bootstrap from NPM. Reactstrap does not include Bootstrap CSS so this needs to be installed as well:",
-        updateAt: new Date().toLocaleDateString()
-      }
-    }
+    db: new DB('notes-react'),
+    notes: {},
+    loading: true
   }
-  render() {
+
+  async componentDidMount() {
+    const notes = await this.state.db.getAllNotes();
+
+    this.setState({
+      notes,
+      loading: false
+    });
+  }
+
+  handleSave = async (note) => {
+    let { id } = await this.state.db.createNote(note);
+
+    const { notes } = this.state;
+
+    this.setState({
+      notes: {
+        ...notes,
+        [id]: note
+      }
+    });
+
+    return id;
+  }
+
+  renderContent() {
+    if (this.state.loading) {
+      return <h2>Loading...</h2>
+    }
     return (
-      <BrowserRouter>
       <div className="contain">
         <Navbar />
         
         <NoteList notes={this.state.notes} />
         <Route exact path='/' component={(props) => <IndexPage {...props} notes={this.state.notes} /> } />
         <Route exact path='/notes/:id' component={(props) => <ShowPage {...props} note={this.state.notes[props.match.params.id]} />} />
-        <Route exact path='/new' component={(props) => <NewPage />} />
+        <Route exact path='/new' component={(props) => <NewPage {...props} onSave={this.handleSave} />} />
       </div>
+    )
+  }
+  render() {
+    return (
+      <BrowserRouter>
+        {this.renderContent()}
       </BrowserRouter>
     );
   }

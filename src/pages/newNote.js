@@ -1,61 +1,44 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import { Button, Input } from 'reactstrap';
-import { PouchDB } from 'react-pouchdb';
 
-var _title = '';
-var _content = '';
-var db = new PouchDB('notes');
-function addNewNote(content) {
-	
-	db.put(content);
-	db.info();
-}
 export default class NewPage extends React.Component {
-	constructor(props, state) {
-		super(props, state);
-		this.state = {
-			_inputTitle: '',
-			_inputContent: ''
+	state = {
+		note:{
+			title: '',
+			body: '',
+			createdAt: undefined,
+			updatedAt: undefined
 		}
 	}
 
+	updateValue = (e) => {
+		const { note } = this.state;
 
-	
-
-	getContent() {
-		const item = {
-			_id: new Date().toLocaleDateString(),
-			_title: _title,
-			_content: _content
-		};
-		
-		addNewNote(item);
+		this.setState({
+			note: {...note, [e.target.name]: e.target.value}
+		});
 	}
 
-	updateInputTitle(e) {
-		this.setState(
-			{
-				_inputTitle: e.target.value
-			}
-			);
-		_title = this.state._inputTitle;
-	}
+	handleSave = async (e) => {
+		e.preventDefault();
 
-	updateInputContent(e) {
-		this.setState({_inputContent: e.target.value});
-		_content = this.state._inputContent;
+		const id = await this.props.onSave(this.state.note);
+		this.props.history.replace(`/notes/${ id }`);
 	}
 	render() {
+		const { note } = this.state;
 		return (
 			<div className="new-note">
-				<Input type="text" name="title" id="title" placeholder="Type your title note" onChange={(e)=>this.updateInputTitle(e)} />
-				<Input type="textarea" name="text" id="exampleText" rows="15" placeholder="Type your note here " onChange={(e)=>this.updateInputContent(e)} />
+				<form onSubmit={this.handleSave}>
+					<Input type="text" name="title" id="title" placeholder="Type your title note" value={note.title} onChange={this.updateValue} />
+					<Input type="textarea" name="body" id="exampleText" rows="15" placeholder="Type your note here " value={note.body} onChange={this.updateValue} />
 
-				<div className="btn-func">
-					<Button className="btn btn-outline-primary btn-success glyphicon glyphicon-plus" onClick={this.getContent}>Save</Button>
-					<Button className="btn btn-outline-warning"><Link to='/'>Cancel</Link></Button>
-				</div>
+					<div className="btn-func">
+						<Button className="btn btn-outline-primary btn-success glyphicon glyphicon-plus">Save</Button>
+						<Button className="btn btn-outline-warning"><Link to='/'>Cancel</Link></Button>
+					</div>
+				</form>
 			</div>
 			
 		);
