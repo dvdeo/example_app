@@ -15,8 +15,8 @@ export default class DB {
     }
 
     async createNote(note) {
-        note.createdAt = new Date();
-        note.updatedAt = new Date();
+        note.createdAt = new Date().toDateString();
+        note.updatedAt = new Date().toDateString();
 
         const res = await this.db.post({...note});
 

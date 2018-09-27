@@ -33,6 +33,7 @@ class App extends Component {
 
     const { notes } = this.state;
 
+    note._id = id;
     this.setState({
       notes: {
         ...notes,

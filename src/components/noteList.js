@@ -15,7 +15,7 @@ export default class Notelist extends React.Component {
     renderNotes() {
         let style = this.state._change ? 'list-item' : 'list-item active';
         const notes = Object.values(this.props.notes);
-        return notes.map((note)=> <Link to={`/notes/${note._id}`}><div className={style} onClick={this.onChangeStyle.bind(this)}><li>{note.title}</li><p>{note.updateAt}</p></div></Link>)
+        return notes.map((note)=> <Link to={`/notes/${note._id}`}><div className={style} onClick={this.onChangeStyle.bind(this)}><li>{note.title}</li><p>{note.updatedAt}</p></div></Link>)
     }
 
     render() {
