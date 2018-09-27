@@ -22,9 +22,11 @@ export default class NewPage extends React.Component {
 
 	handleSave = async (e) => {
 		e.preventDefault();
-
-		const id = await this.props.onSave(this.state.note);
-		this.props.history.replace(`/notes/${ id }`);
+		if (this.state.note.title !== "" && this.state.note.body !== ""){
+			const id = await this.props.onSave(this.state.note);
+			this.props.history.replace(`/notes/${ id }`);
+		}
+		
 	}
 	render() {
 		const { note } = this.state;
@@ -36,7 +38,7 @@ export default class NewPage extends React.Component {
 
 					<div className="btn-func">
 						<Button className="btn btn-outline-primary btn-success glyphicon glyphicon-plus">Save</Button>
-						<Button className="btn btn-outline-warning"><Link to='/'>Cancel</Link></Button>
+						<Link to='/'><Button className="btn btn-outline-warning">Cancel</Button></Link>
 					</div>
 				</form>
 			</div>

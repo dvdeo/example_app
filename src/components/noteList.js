@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
-var style='';
 export default class Notelist extends React.Component {
     constructor() {
         super();
