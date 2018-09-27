@@ -85,7 +85,8 @@ class App extends Component {
         <Navbar />
         
         <NoteList notes={this.state.notes} />
-        <Route exact path='/' component={(props) => <IndexPage {...props} notes={this.state.notes} /> } />
+        {/* <Route exact path='/' component={(props) => <IndexPage {...props} notes={this.state.notes} /> } /> */}
+        <Route exact path='/' component={(props) => <ShowPage {...props} note={this.state.notes[Object.keys(this.state.notes)[0]]} onDelete={this.handleDelete}/>} />
         <Route exact path='/notes/:id' component={(props) => <ShowPage {...props} note={this.state.notes[props.match.params.id]} onDelete={this.handleDelete}/>} />
         <Route exact path='/edit/:id' component={(props) => <EditPage {...props} note={this.state.notes[props.match.params.id]} onUpdate={this.handleUpdate} />} />
         <Route exact path='/new' component={(props) => <NewPage {...props} onSave={this.handleSave} />} />

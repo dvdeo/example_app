@@ -1,6 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 
+import ItemNote from './item';
+
 export default class Notelist extends React.Component {
     constructor() {
         super();
@@ -9,12 +11,13 @@ export default class Notelist extends React.Component {
         }
     }
     onChangeStyle() {
-        // this.setState({_change: !this.state._change})
+        this.setState({_change: !this.state._change})
+        // console.log(id);
     }
     renderNotes() {
         let style = this.state._change ? 'list-item' : 'list-item active';
         const notes = Object.values(this.props.notes);
-        return notes.map((note)=> <Link to={`/notes/${note._id}`}><div className={style} onClick={this.onChangeStyle.bind(this)}><li>{note.title}</li><p>{note.updatedAt}</p></div></Link>)
+        return notes.map((note)=> <ItemNote note={note} />)
     }
 
     render() {
