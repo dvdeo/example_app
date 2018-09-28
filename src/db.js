@@ -31,6 +31,11 @@ export default class DB {
     async updateNote(note, id) {
         note._id = id;
         note.updatedAt = new Date().toDateString();
+        if (note.title.length > 20) {
+            note.title_list = note.title.substring(1, 20) + "...";
+        } else {
+            note.title_list = note.title;
+        }
         const res = await this.db.put({...note});
         return res;
     }
