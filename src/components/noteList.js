@@ -17,7 +17,7 @@ export default class Notelist extends React.Component {
     renderNotes() {
         let style = this.state._change ? 'list-item' : 'list-item active';
         const notes = Object.values(this.props.notes);
-        return notes.map((note)=> <ItemNote note={note} />)
+        return notes.map((note)=> <ItemNote key={note._id} note={note} />)
     }
 
     render() {
