@@ -17,7 +17,11 @@ export default class DB {
     async createNote(note) {
         note.createdAt = new Date().toDateString();
         note.updatedAt = new Date().toDateString();
-
+        if (note.title.length > 20) {
+            note.title_list = note.title.substring(1, 20) + "...";
+        } else {
+            note.title_list = note.title;
+        }
         const res = await this.db.post({...note});
 
         return res;
@@ -27,11 +31,8 @@ export default class DB {
     async updateNote(note, id) {
         note._id = id;
         note.updatedAt = new Date().toDateString();
-        let _id = id+"";
         const res = await this.db.put({...note});
         return res;
-        // const res = await this.db.get({_id});
-        // return res;
     }
 
     //delete note

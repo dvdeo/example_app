@@ -1,13 +1,11 @@
 import React from 'react';
 import { Button } from 'reactstrap';
 import { Link } from 'react-router-dom';
-import Popup from 'react-popup';
 
 export default class ShowPage extends React.Component {
 
     handleDelete = async () => {
         const {note} = this.props;
-        console.log(note._id);
         await this.props.onDelete(note._id, note._rev);
         this.props.history.replace('/');
         

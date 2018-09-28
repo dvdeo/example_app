@@ -4,7 +4,7 @@ import './style.css';
 import './bootstrap/css/bootstrap.css';
 import { BrowserRouter, Route } from 'react-router-dom';
 
-import IndexPage from './pages';
+// import IndexPage from './pages';
 import ShowPage from './pages/showNote';
 import Navbar from './components/navbar';
 import NoteList from './components/noteList';
@@ -31,7 +31,6 @@ class App extends Component {
 
   handleSave = async (note) => {
     let {rev, id}  = await this.state.db.createNote(note);
-    console.log(rev);
     const { notes } = this.state;
 
     note._id = id;
@@ -48,9 +47,7 @@ class App extends Component {
 
   handleUpdate = async (note, id) => {
     let { rev } = await this.state.db.updateNote(note, id);
-    console.log(rev);
     const { notes } = this.state;
-    // const { notes } = await this.state.db.getAllNotes();
     note._id = id;
     note._rev = rev;
     this.setState({
@@ -65,10 +62,6 @@ class App extends Component {
     await this.state.db.deleteNote(_id, _rev);
     delete this.state.notes[_id];
     let {notes} = this.state
-    
-    console.log(this.state.notes);
-    // delete {notes._id};
-    // console.log(notes);
     this.setState({
       notes: {
         ...notes
